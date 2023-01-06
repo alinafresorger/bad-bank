@@ -1,7 +1,11 @@
 const { resolve } = require("path");
 
 const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017";
+
+const { DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME } = process.env;
+
+const url = `mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}`;
+
 // let db = null;
 //
 // //connect to mongo
@@ -24,7 +28,7 @@ function connect() {
       console.log("Connected to db!");
 
       //connect ot myproject database
-      resolve(client.db("myproject"));
+      resolve(client.db(DATABASE_NAME));
     });
   });
 }
