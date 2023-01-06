@@ -61,70 +61,64 @@ function CreateAccount() {
   }
 
   return (
-    <Card
-      bgcolor="primary"
-      header="Create Account"
-      status={status}
-      body={
-        show ? (
-          <form onSubmit={handleCreate}>
-            Name
-            <br />
-            <input
-              type="input"
-              className="form-control"
-              id="name"
-              placeholder="Enter name"
-              value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
-            />
-            <br />
-            Email address
-            <br />
-            <input
-              type="input"
-              className="form-control"
-              id="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-            />
-            <br />
-            Password
-            <br />
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-            <br />
-            <button type="submit" className="btn btn-light" disabled={!name && !email && !password}>
-              Create Account
-            </button>
-          </form>
-        ) : (
-          <>
-            <h5>Success</h5>
-            <button type="submit" className="btn btn-light" onClick={clearForm}>
-              Add another account
-            </button>
-          </>
-        )
-      }
-    />
+    <>
+      <Card
+        bgcolor="primary"
+        header="Create Account"
+        status={status}
+        body={
+          show ? (
+            <form onSubmit={handleCreate}>
+              Name
+              <br />
+              <input
+                type="input"
+                className="form-control"
+                id="name"
+                placeholder="Enter name"
+                value={name}
+                onChange={(e) => setName(e.currentTarget.value)}
+              />
+              <br />
+              Email address
+              <br />
+              <input
+                type="input"
+                className="form-control"
+                id="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.currentTarget.value)}
+              />
+              <br />
+              Password
+              <br />
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.currentTarget.value)}
+              />
+              <br />
+              <button type="submit" className="btn btn-light" disabled={!name && !email && !password}>
+                Create Account
+              </button>
+              <br />
+            </form>
+          ) : (
+            <>
+              <h5>Success</h5>
+              <button type="submit" className="btn btn-light" onClick={clearForm}>
+                Add another account
+              </button>
+            </>
+          )
+        }
+      />
+      <br />
+      <Card bgcolor="primary" header="Login with Google" body={<SignInWithGoogle />} />
+    </>
   );
-
-  // const ctx = React.useContext(UserContext);
-
-  // return (
-  //   <div>
-  //     <h1>
-  //       Create Account <br />
-  //       {JSON.stringify(ctx)}
-  //     </h1>
-  //   </div>
-  // );
 }

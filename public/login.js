@@ -46,7 +46,7 @@ function Login() {
     setEmail("");
     setPassword("");
     setShow(true);
-    ctx.setState({ ...ctx.state, currentUser: null });
+    ctx.logout();
   }
 
   return (
@@ -82,18 +82,12 @@ function Login() {
             <button type="submit" className="btn btn-light" disabled={!email && !password}>
               Login
             </button>
+            <SignInWithGoogle />
           </form>
         ) : (
           <>
             <h5>Success, logged in as {currentUser.email}</h5>
-            <button
-              type="submit"
-              className="btn btn-light"
-              onClick={() => {
-                clearForm();
-                ctx.setState((state) => ({ ...state, currentUserEmail: null }));
-              }}
-            >
+            <button type="button" className="btn btn-light" onClick={clearForm}>
               Switch Account
             </button>
           </>

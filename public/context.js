@@ -33,6 +33,12 @@ function UserContextProvider({ children }) {
     setCurrentUser(user); // make user current
   }, []);
 
+  const googleLogin = React.useCallback(async ({ response }) => {
+    const res = await fetchApi(backendUrl + `/account/googleLogin/${response.credential}`);
+    const user = await res.json(); // returns JSON with user info
+    setCurrentUser(user); // make user current
+  }, []);
+
   const logout = React.useCallback(async () => {
     setCurrentUser(null);
   }, []);
@@ -76,12 +82,14 @@ function UserContextProvider({ children }) {
       currentUser,
       add,
       login,
+      logout,
       withdraw,
       deposit,
       all,
       addAudit,
+      googleLogin,
     }),
-    [currentUser, add, login, withdraw, deposit, all, addAudit]
+    [currentUser, add, login, logout, withdraw, deposit, all, addAudit, googleLogin]
   );
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 }
