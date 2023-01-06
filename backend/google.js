@@ -2,7 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const dal = require("./dal.js");
 
 const GOOGLE_CLIENT_ID = "152320973930-k4cuiof24ni58fofkc8be760v9q73hjl.apps.googleusercontent.com";
-const GOOGLE_SECRET = "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";
+const { GOOGLE_SECRET } = process.env;
 
 const oAuth2Client = new OAuth2Client(
   GOOGLE_CLIENT_ID,
