@@ -3,7 +3,7 @@ const Link = ReactRouterDOM.Link;
 const HashRouter = ReactRouterDOM.HashRouter;
 const UserContext = React.createContext(null);
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = window.location.origin; // http://localhost:3000
 
 async function fetchApi(url, init) {
   const res = await fetch(url, init);
