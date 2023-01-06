@@ -2,7 +2,9 @@ version: "3"
 
 services:
   badbankbackend:
+    container_name: badbankbackend
     build: ./backend
+    image: afresorger/badbankbackend
     restart: unless-stopped
     env_file: .env
     environment:

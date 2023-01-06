@@ -10,15 +10,37 @@ Use at your own risk.
 1. Download repository to your local machine
 2. In the terminal run the following:
    ```bash
-   $ npm install
-   $ docker run -p 27017:27017 --name badbank -d mongo
-   $ npm start
+   $ docker-compose up
    ```
 3. Go to http://localhost:3000/
 
+## How to deploy
+
+First, build & push the image to Docker Registry:
+
+```bash
+$ docker compose build
+$ docker compose push badbankbackend
+```
+
+Then SSH to production server:
+
+```bash
+$ ssh root@146.190.123.193
+```
+
+On production server:
+
+```bash
+$ docker compose pull
+$ docker compose up -d
+```
+
+Run `apt install docker-compose` once after DO droplet has been created.
+
 ## Technology used:
 
-MERN stack
+MERN stack, Docker, Digital Ocean
 
 ## Roadmap Of Future Improvements:
 
