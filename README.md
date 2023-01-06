@@ -16,7 +16,7 @@ Use at your own risk.
 
 ## How to deploy
 
-Deploy process:
+Deploys to http://alina-fresorger-fullstackbankingapplication.konshin.org
 
 1. Commit code & push to Github
 2. [GH Action](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images) pushes image to [Docker Hub](https://hub.docker.com/r/afresorger/badbankbackend)
@@ -45,6 +45,8 @@ $ docker compose push badbankbackend
 ### Digital Ocean Droplet Provisioning (once)
 
 Run `apt install docker-compose` once after DO droplet has been created.
+
+HTTPS setup: https://github.com/wmnnd/nginx-certbot
 
 ## Technology used:
 
