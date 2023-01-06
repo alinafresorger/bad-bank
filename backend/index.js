@@ -34,7 +34,7 @@ app.get("/account/create/:name/:email/:password", async function (req, res) {
   try {
     const db = await dbPromise;
 
-    const existingUser = await dal.findUser(db, email);
+    const existingUser = await dal.findUser(db, req.params.email);
     if (existingUser) throw new Error("User already exists");
 
     const user = await dal.create(db, req.params.name, req.params.email, req.params.password);
