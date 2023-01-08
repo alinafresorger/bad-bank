@@ -3,7 +3,7 @@ import { useUserContext, useCurrentUser, Card } from "../components/context";
 
 export default function Balance() {
   const [status, setStatus] = useState("");
-  const ctx = useUserContext();
+  // const ctx = useUserContext();
   const currentUser = useCurrentUser();
 
   if (!currentUser) return <Card bgcolor="danger" body="Not logged in"></Card>;

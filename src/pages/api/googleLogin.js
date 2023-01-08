@@ -1,6 +1,7 @@
 import * as dal from "../../dal";
 import { getSafeUser, createToken } from "../../lib";
 import { createOrReturnUser } from "../../google";
+import assert from "assert";
 
 /**
  * @param {import('next').NextApiRequest} req
@@ -21,6 +22,7 @@ export default async function handler(req, res) {
   // console.log(response.data);
   try {
     const db = await dal.getDb();
+    assert(req.body.token, "No token");
     const user = await createOrReturnUser(db, req.body.token);
     console.log("Logged in user", user);
     await createToken(user);
@@ -28,6 +30,6 @@ export default async function handler(req, res) {
   } catch (e) {
     console.error(e);
     res.statusMessage = e.message;
-    res.sendStatus(400);
+    res.status(400).send();
   }
 }

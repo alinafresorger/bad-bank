@@ -21,16 +21,18 @@ export default function Withdraw() {
     e.preventDefault();
     console.log(withdraw);
 
-    if (!validate(withdraw, "Enter valid amount")) return;
-    else {
-      if (withdraw > currentUser.balance) {
-        alert("Insufficient funds");
-        return;
-      } else if (withdraw <= 0 || isNaN(withdraw)) {
-        alert("Enter valid amount");
-        return;
-      }
-    }
+    if (!validate(withdraw > 0, "Enter valid amount")) return;
+    if (!validate(currentUser.balance >= withdraw, "Insufficient funds")) return;
+
+    // else {
+    //   if (withdraw > currentUser.balance) {
+    //     alert("Insufficient funds");
+    //     return;
+    //   } else if (withdraw <= 0 || isNaN(withdraw)) {
+    //     alert("Enter valid amount");
+    //     return;
+    //   }
+    // }
 
     // const newUsers = ctx.state.users.reduce((res, user) => {
     //   if (user.email === currentUser.email) {
@@ -46,12 +48,12 @@ export default function Withdraw() {
     // // ctx.users.push({ });
     // setShow(false);
     ctx
-      .withdraw({ amount: withdraw })
+      .withdraw({ amount: parseInt(withdraw, 10) })
       .then((user) => {
         setShow(false);
       })
       .catch((e) => {
-        alert("Cannot make deposit", e.message);
+        alert("Cannot withdraw: " + e.message);
         setShow(true);
       });
   }
@@ -79,7 +81,7 @@ export default function Withdraw() {
             Withdraw Amount
             <br />
             <input
-              type="input"
+              type="number"
               className="form-control"
               id="withdraw"
               placeholder="Withdraw Amount"

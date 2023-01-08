@@ -12,7 +12,7 @@ export default function CreateAccount() {
 
   function validate(field, label) {
     if (!field) {
-      setStatus("Error: " + label + " is required");
+      setStatus("Error: " + label);
       setTimeout(() => setStatus(""), 3000);
       return false;
     }
@@ -22,15 +22,16 @@ export default function CreateAccount() {
   function handleCreate(e) {
     e.preventDefault();
     console.log(name, email, password);
-    if (!validate(name, "name")) return;
-    if (!validate(email, "email")) return;
-    if (!validate(password, "password")) return;
-    else {
-      if (password.length < 8) {
-        alert("Password must be 8 characters long");
-        return;
-      }
-    }
+    if (!validate(name, "name is required")) return;
+    if (!validate(email, "email is required")) return;
+    if (!validate(password, "password is required")) return;
+    if (!validate(password.length >= 8, "password must be 8 characters long")) return;
+    // else {
+    //   if (password.length < 8) {
+    //     alert("Password must be 8 characters long");
+    //     return;
+    //   }
+    // }
     // function handle() {
     //   console.log(name, email, password);
     //   const url = `/account/create/${name}/${email}/${password}`;

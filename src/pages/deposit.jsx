@@ -19,16 +19,17 @@ export default function Deposit() {
 
   function handleDeposit(e) {
     e.preventDefault();
-    console.log(deposit);
+    console.log(deposit, Number.isInteger(deposit));
 
-    // all checks should be done on server
-    if (!validate(deposit, "Enter valid amount")) return;
-    else {
-      if (deposit <= 0 || isNaN(deposit)) {
-        alert("Enter valid amount");
-        return;
-      }
-    }
+    if (!validate(deposit > 0, "Enter valid amount")) return;
+
+    // if (!validate(deposit, "Enter valid amount")) return;
+    // else {
+    //   if (deposit <= 0 || isNaN(deposit)) {
+    //     alert("Enter valid amount");
+    //     return;
+    //   }
+    // }
 
     // const newUsers = ctx.state.users.reduce((res, user) => {
     //   if (user.email === currentUser.email) {
@@ -44,12 +45,12 @@ export default function Deposit() {
     // // ctx.users.push({ });
     // setShow(false);
     ctx
-      .deposit({ amount: deposit })
+      .deposit({ amount: parseInt(deposit, 10) }) // since we send body as JSON now, we can convert to true number
       .then((user) => {
         setShow(false);
       })
       .catch((e) => {
-        alert("Cannot make deposit", e.message);
+        alert("Cannot make deposit: " + e.message);
         setShow(true);
       });
   }
@@ -77,7 +78,7 @@ export default function Deposit() {
             Deposit Amount
             <br />
             <input
-              type="input"
+              type="number"
               className="form-control"
               id="deposit"
               placeholder="Deposit Amount"
