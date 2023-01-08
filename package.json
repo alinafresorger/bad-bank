@@ -1,0 +1,23 @@
+{
+  "name": "bad-bank-alina-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export"
+  },
+  "keywords": [],
+  "author": "Alina Fresorger",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^8.7.0",
+    "mongodb": "^4.12.0",
+    "next": "^13.1.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0"
+  }
+}

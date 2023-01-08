@@ -1,5 +1,8 @@
-function Balance() {
-  const [status, setStatus] = React.useState("");
+import React, { useState } from "react";
+import { useUserContext, useCurrentUser, Card } from "../components/context";
+
+export default function Balance() {
+  const [status, setStatus] = useState("");
   const ctx = useUserContext();
   const currentUser = useCurrentUser();
 

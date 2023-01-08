@@ -1,7 +1,10 @@
-function Deposit() {
-  const [show, setShow] = React.useState(true);
-  const [status, setStatus] = React.useState("");
-  const [deposit, setDeposit] = React.useState(0);
+import React, { useState } from "react";
+import { useUserContext, useCurrentUser, Card } from "../components/context";
+
+export default function Withdraw() {
+  const [show, setShow] = useState(true);
+  const [status, setStatus] = useState("");
+  const [withdraw, setWithdraw] = useState(0);
   const ctx = useUserContext();
   const currentUser = useCurrentUser();
 
@@ -14,14 +17,16 @@ function Deposit() {
     return true;
   }
 
-  function handleDeposit(e) {
+  function handleWithdraw(e) {
     e.preventDefault();
-    console.log(deposit);
+    console.log(withdraw);
 
-    // all checks should be done on server
-    if (!validate(deposit, "Enter valid amount")) return;
+    if (!validate(withdraw, "Enter valid amount")) return;
     else {
-      if (deposit <= 0 || isNaN(deposit)) {
+      if (withdraw > currentUser.balance) {
+        alert("Insufficient funds");
+        return;
+      } else if (withdraw <= 0 || isNaN(withdraw)) {
         alert("Enter valid amount");
         return;
       }
@@ -29,19 +34,19 @@ function Deposit() {
 
     // const newUsers = ctx.state.users.reduce((res, user) => {
     //   if (user.email === currentUser.email) {
-    //     user.balance = Number(user.balance) + Number(deposit);
+    //     user.balance = Number(user.balance) - Number(withdraw);
     //     console.log("New balance", user.balance);
     //   }
     //   res.push(user);
     //   return res;
     // }, []);
     // ctx.setState({ ...ctx.state, users: newUsers });
-    // ctx.addAudit({ action: "deposit", email: currentUser.email, data: { deposit } });
+    // ctx.addAudit({ action: "withdraw", email: currentUser.email, data: { withdraw } });
     // // }
     // // ctx.users.push({ });
     // setShow(false);
     ctx
-      .deposit({ amount: deposit })
+      .withdraw({ amount: withdraw })
       .then((user) => {
         setShow(false);
       })
@@ -52,45 +57,45 @@ function Deposit() {
   }
 
   function clearForm() {
-    setDeposit(0);
+    setWithdraw(0);
     setShow(true);
   }
 
   if (!currentUser) return <Card bgcolor="danger" body="Not logged in"></Card>;
 
-  const totalBalance = `Account Balance $${currentUser.balance}`;
+  const totalBalance = `Account Balance $ ${currentUser.balance}`;
 
   return (
     <Card
-      bgcolor="success"
-      header="Deposit"
+      bgcolor="info"
+      header="Withdraw"
       status={status}
       body={
         show ? (
-          <form onSubmit={handleDeposit}>
+          <form onSubmit={handleWithdraw}>
             <h5> {totalBalance} </h5>
             <br />
             <br />
-            Deposit Amount
+            Withdraw Amount
             <br />
             <input
               type="input"
               className="form-control"
-              id="deposit"
-              placeholder="Deposit Amount"
-              value={deposit}
-              onChange={(e) => setDeposit(e.currentTarget.value)}
+              id="withdraw"
+              placeholder="Withdraw Amount"
+              value={withdraw}
+              onChange={(e) => setWithdraw(e.currentTarget.value)}
             />
             <br />
-            <button type="submit" className="btn btn-light" disabled={!deposit}>
-              Deposit
+            <button type="submit" className="btn btn-light" disabled={!withdraw}>
+              Withdraw
             </button>
           </form>
         ) : (
           <>
             <h5>Success, new balance $ {currentUser.balance}</h5>
             <button type="submit" className="btn btn-light" onClick={clearForm}>
-              Deposit another amount
+              Withdraw another amount
             </button>
           </>
         )
