@@ -10,7 +10,6 @@ app.use(cors());
 
 // const dbPromise = dal.connect();
 
-
 //create user account
 // app.get("/account/create/:name/:email/:password", async function (req, res) {
 //   try {
@@ -142,9 +141,6 @@ app.get("/account/withdraw/:email/:password/:amount", async function (req, res) 
 // });
 
 // staet the listener
-
-
-
 
 // var port = 3000;
 // app.listen(port);

@@ -57,21 +57,27 @@ export function UserContextProvider({ children }) {
     return res.json();
   }, []);
 
-  const login = useCallback(async ({ email, password }) => {
-    const res = await fetchApi(`/api/login`, { body: { email, password } });
-    const user = await res.json(); // returns JSON with user info
-    setCurrentUser(user); // make user current
-  }, []);
+  const login = useCallback(
+    async ({ email, password }) => {
+      const res = await fetchApi(`/api/login`, { body: { email, password } });
+      const user = await res.json(); // returns JSON with user info
+      setCurrentUser(user); // make user current
+    },
+    [setCurrentUser]
+  );
 
-  const googleLogin = useCallback(async ({ response }) => {
-    const res = await fetchApi(`/api/googleLogin`, { body: { token: response.credential } });
-    const user = await res.json(); // returns JSON with user info
-    setCurrentUser(user); // make user current
-  }, []);
+  const googleLogin = useCallback(
+    async ({ response }) => {
+      const res = await fetchApi(`/api/googleLogin`, { body: { token: response.credential } });
+      const user = await res.json(); // returns JSON with user info
+      setCurrentUser(user); // make user current
+    },
+    [setCurrentUser]
+  );
 
   const logout = useCallback(async () => {
     setCurrentUser(null);
-  }, []);
+  }, [setCurrentUser]);
 
   const withdraw = useCallback(
     async ({ amount }) => {
@@ -82,7 +88,7 @@ export function UserContextProvider({ children }) {
       const user = await res.json();
       setCurrentUser(user); // update local user with new balance
     },
-    [currentUser]
+    [currentUser, setCurrentUser]
   );
 
   const deposit = useCallback(
@@ -94,7 +100,7 @@ export function UserContextProvider({ children }) {
       const user = await res.json();
       setCurrentUser(user); // update local user with new balance
     },
-    [currentUser]
+    [currentUser, setCurrentUser]
   );
 
   const all = useCallback(async () => {
