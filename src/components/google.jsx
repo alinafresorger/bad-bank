@@ -1,8 +1,11 @@
-function SignInWithGoogle() {
-  const ref = React.useRef();
+import React, { useRef, useCallback, useEffect } from "react";
+import { useUserContext } from "./context";
+
+export function SignInWithGoogle() {
+  const ref = useRef();
   const ctx = useUserContext();
 
-  const onLoggedIn = React.useCallback(
+  const onLoggedIn = useCallback(
     (response) => {
       console.log("Encoded JWT ID token", response);
       ctx.googleLogin({ response });
@@ -10,9 +13,11 @@ function SignInWithGoogle() {
     [ctx]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (typeof google === "undefined") return; // server rendering
+
     google.accounts.id.initialize({
-      client_id: "152320973930-k4cuiof24ni58fofkc8be760v9q73hjl.apps.googleusercontent.com",
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       callback: onLoggedIn,
     });
 

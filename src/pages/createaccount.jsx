@@ -1,9 +1,13 @@
-function CreateAccount() {
-  const [show, setShow] = React.useState(true);
-  const [status, setStatus] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+import React, { useState } from "react";
+import { useUserContext, Card } from "../components/context";
+import { SignInWithGoogle } from "../components/google";
+
+export default function CreateAccount() {
+  const [show, setShow] = useState(true);
+  const [status, setStatus] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const ctx = useUserContext();
 
   function validate(field, label) {

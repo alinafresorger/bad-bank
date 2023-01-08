@@ -1,8 +1,12 @@
-function Login() {
-  const [show, setShow] = React.useState(true);
-  const [status, setStatus] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+import React, { useState } from "react";
+import { useUserContext, useCurrentUser, Card } from "../components/context";
+import { SignInWithGoogle } from "../components/google";
+
+export default function Login() {
+  const [show, setShow] = useState(true);
+  const [status, setStatus] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const ctx = useUserContext();
   const currentUser = useCurrentUser();
 

@@ -1,11 +1,10 @@
 const { OAuth2Client } = require("google-auth-library");
 const dal = require("./dal.js");
 
-const GOOGLE_CLIENT_ID = "152320973930-k4cuiof24ni58fofkc8be760v9q73hjl.apps.googleusercontent.com";
-const { GOOGLE_SECRET } = process.env;
+const { GOOGLE_SECRET, NEXT_PUBLIC_GOOGLE_CLIENT_ID } = process.env;
 
 const oAuth2Client = new OAuth2Client(
-  GOOGLE_CLIENT_ID,
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   GOOGLE_SECRET
   // "http://localhost:3000"
 );
@@ -13,14 +12,14 @@ const oAuth2Client = new OAuth2Client(
 const checkGoogleToken = async (idToken) => {
   const ticket = await oAuth2Client.verifyIdToken({
     idToken,
-    audience: GOOGLE_CLIENT_ID,
+    audience: NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   });
 
   const data = await ticket.getPayload();
 
   if (!data.email_verified) throw new Error("Not verified");
   if (data.iss !== "https://accounts.google.com") throw new Error("Issued not by Google");
-  if (data.aud !== GOOGLE_CLIENT_ID) throw new Error("Wrong audience");
+  if (data.aud !== NEXT_PUBLIC_GOOGLE_CLIENT_ID) throw new Error("Wrong audience");
 
   // {
   //   iss: 'https://accounts.google.com',
@@ -42,7 +41,7 @@ const checkGoogleToken = async (idToken) => {
   return data;
 };
 
-const createOrReturnUser = async (db, idToken) => {
+export const createOrReturnUser = async (db, idToken) => {
   const userData = await checkGoogleToken(idToken);
   let user = await dal.findUser(db, userData.email);
   if (!user) {
@@ -50,5 +49,3 @@ const createOrReturnUser = async (db, idToken) => {
   }
   return user;
 };
-
-module.exports = { createOrReturnUser };

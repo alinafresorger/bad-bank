@@ -2,9 +2,11 @@ const { resolve } = require("path");
 
 const MongoClient = require("mongodb").MongoClient;
 
-const { MONGODB_URI, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME } = process.env;
+const { MONGODB_URI, DATABASE_NAME } = process.env;
 
-const url = MONGODB_URI || `mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}`;
+const url = MONGODB_URI; // || `mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}`;
+
+console.log("Mongo URL", url);
 
 // let db = null;
 //
@@ -16,7 +18,7 @@ const url = MONGODB_URI || `mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@
 //   db = client.db("myproject");
 // });
 
-function connect() {
+export function connect() {
   return new Promise((resolve, reject) => {
     //connect to mongo
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
@@ -34,7 +36,7 @@ function connect() {
 }
 
 // create user account
-function create(db, name, email, password) {
+export function create(db, name, email, password) {
   return new Promise((resolve, reject) => {
     const collection = db.collection("users");
     const doc = { name, email, password, balance: 0 };
@@ -45,18 +47,18 @@ function create(db, name, email, password) {
   });
 }
 
-async function findUser(db, email) {
+export async function findUser(db, email) {
   return db.collection("users").findOne({ email });
 }
 
-async function updateUser(db, user) {
+export async function updateUser(db, user) {
   const { _id, ...rest } = user;
   if (!_id) throw new Error("no user id");
   return db.collection("users").updateOne({ _id }, { $set: rest });
 }
 
 // all users
-function all(db) {
+export function all(db) {
   return new Promise((resolve, reject) => {
     const customers = db
       .collection("users")
@@ -74,4 +76,9 @@ function all(db) {
   });
 }
 
-module.exports = { create, all, findUser, updateUser, connect };
+// module.exports = { create, all, findUser, updateUser, connect };
+const dbPromise = connect();
+
+export async function getDb() {
+  return dbPromise;
+}

@@ -21,12 +21,14 @@
 //   return ctx.state.audit.map((data, i) => <AuditEntry key={i} data={data}></AuditEntry>);
 
 // }
+import React, { useState, useEffect } from "react";
+import { useUserContext, Card } from "../components/context";
 
-function AllData() {
-  const [data, setData] = React.useState("");
+export function AllData() {
+  const [data, setData] = useState("");
   const ctx = useUserContext();
 
-  React.useEffect(() => {
+  useEffect(() => {
     // fetch all accounts from API
     ctx.all().then((data) => {
       console.log(data);
@@ -35,9 +37,9 @@ function AllData() {
   }, [ctx]);
 
   return (
-    <>
+    <Card>
       <h5> All Data In store:</h5>
       {data}
-    </>
+    </Card>
   );
 }
