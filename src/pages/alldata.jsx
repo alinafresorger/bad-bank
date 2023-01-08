@@ -24,7 +24,7 @@
 import React, { useState, useEffect } from "react";
 import { useUserContext, Card } from "../components/context";
 
-export function AllData() {
+export default function AllData() {
   const [data, setData] = useState("");
   const ctx = useUserContext();
 
