@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     user.balance = Number(user.balance) + Number(req.body.amount);
     console.log(user);
     await dal.updateUser(db, user);
-    res.send(getSafeUser(user));
+    res.json(getSafeUser(user));
   } catch (e) {
     console.error("Deposit error", e);
     res.statusMessage = e.message;

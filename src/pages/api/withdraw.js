@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     // if (req.body.amount > user.balance)) throw new Error('Not enough funds');
     user.balance = Number(user.balance) - Number(req.body.amount);
     await dal.updateUser(db, user);
-    res.send(getSafeUser(user));
+    res.json(getSafeUser(user));
   } catch (e) {
     console.error("Withdraw error", e);
     res.statusMessage = e.message;

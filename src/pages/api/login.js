@@ -17,7 +17,6 @@ export default async function handler(req, res) {
   } catch (e) {
     console.error("Login error", e);
     res.statusMessage = e.message;
-    res.statusCode = 400;
-    res.send();
+    res.sendStatus(400);
   }
 }

@@ -16,10 +16,9 @@ export default async function handler(req, res) {
     console.log(user);
     res.json(getSafeUser(user)); // was send
   } catch (e) {
-    console.error("Login error", e);
+    console.error("Create error", e);
     res.statusMessage = e.message;
-    res.statusCode = 400;
-    res.send();
+    res.sendStatus(400);
   }
   //   res.status(200).json({ message: "Hello from Next.js!" });
 }

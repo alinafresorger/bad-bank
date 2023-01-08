@@ -20,7 +20,7 @@ export default function CreateAccount() {
   }
 
   function handleCreate(e) {
-    e.stopPropagation();
+    e.preventDefault();
     console.log(name, email, password);
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
