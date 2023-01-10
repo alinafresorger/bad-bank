@@ -37,6 +37,7 @@ export function connect() {
 
 // create user account
 export function create(db, name, email, password) {
+  // TODO Await DB here
   return new Promise((resolve, reject) => {
     const collection = db.collection("users");
     const doc = { name, email, password, balance: 0 };
@@ -48,10 +49,12 @@ export function create(db, name, email, password) {
 }
 
 export async function findUser(db, email) {
+  // TODO Await DB here
   return db.collection("users").findOne({ email });
 }
 
 export async function updateUser(db, user) {
+  // TODO Await DB here
   const { _id, ...rest } = user;
   if (!_id) throw new Error("no user id");
   return db.collection("users").updateOne({ _id }, { $set: rest });
@@ -59,6 +62,7 @@ export async function updateUser(db, user) {
 
 // all users
 export function all(db) {
+  // TODO Await DB here
   return new Promise((resolve, reject) => {
     const customers = db
       .collection("users")

@@ -47,6 +47,9 @@ export function NavBar() {
                 </MyNavLink>
               </>
             )}
+            <MyNavLink href="/swagger" title="Swagger">
+              Swagger
+            </MyNavLink>
             {/* <MyNavLink href="/alldata" title="Check activity">
               All Data
             </MyNavLink> */}

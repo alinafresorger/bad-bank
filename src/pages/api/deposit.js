@@ -3,7 +3,33 @@ import { getSafeUser, findAndVerifyUser } from "../../lib";
 import assert from "assert";
 
 /**
- * TODO Normally an access token should be provided instead of email and password
+ * /**
+ * @openapi
+ * /api/deposit:
+ *   post:
+ *     description: Deposits money
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               amount:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Returns a user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */

@@ -3,6 +3,32 @@ import { getSafeUser } from "../../lib";
 import assert from "assert";
 
 /**
+ * @openapi
+ * /api/create:
+ *   post:
+ *     description: Creates a user
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Returns a user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */

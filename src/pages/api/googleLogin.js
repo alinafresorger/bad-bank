@@ -4,6 +4,29 @@ import { createOrReturnUser } from "../../google";
 import assert from "assert";
 
 /**
+ * /**
+ * @openapi
+ * /api/googleLogin:
+ *   post:
+ *     description: Log in via Google
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Returns a user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */
